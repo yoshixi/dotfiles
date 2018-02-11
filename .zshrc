@@ -70,6 +70,8 @@ alias vz="vim ~/.zshrc"
 alias home=$HOME
 alias vv="vim ~/.vimrc"
 alias l="ls -al"
+alias g='cd $(ghq root)/$(ghq list | peco)'
+alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 eval "$(rbenv init -)"
 
 
@@ -80,3 +82,24 @@ alias download="/Users/masubuchiyoshiki/Downloads"
 #nicola
 alias rubo="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop"
 
+# 履歴ファイルの保存先
+export HISTFILE=${HOME}/.zsh_history
+# メモリに保存される履歴の件数
+export HISTSIZE=10000
+# 履歴ファイルに保存される履歴の件数
+export SAVEHIST=100000
+# 重複を記録しない
+setopt hist_ignore_dups
+# 開始と終了を記録
+setopt EXTENDED_HISTORY
+# historyの共有
+setopt share_history
+# historyコマンドは履歴に登録しない
+setopt hist_no_store
+# 補完時にヒストリを自動的に展開
+setopt hist_expand
+bindkey '^h' zaw-history
+# history search
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
+source /Users/masubuchiyoshiki/zsh_plugin/zaw/zaw.zsh
