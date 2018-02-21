@@ -6,8 +6,8 @@
   setopt auto_menu # タブによるファイルの順番切り替えをしない
   setopt auto_pushd # cd -[tab]で過去のディレクトリにひとっ飛びできるようにする
   setopt auto_cd # ディレクトリ名を入力するだけでcdできるようにする
-  setopt interactive_comments # コマンドラインでも # 以降をコメントと見なす
-}
+  setopt interactivecomments
+ }
 
 
 : "プラグイン" && {
@@ -58,12 +58,15 @@ alias gb="git branch"
 alias gs="git status"
 alias gc="git checkout"
 alias gcm="git commit -m"
+alias gd="git diff"
 alias gpo="git push origin "
+alias gps="$PUSH_STAGING"
+alias gpp="$PUSH_PRODUCTION"
 alias jvcd="javac -d cmp"
 alias tej="trans {en=ja}"
 alias tje="trans {ja=en}"
 alias ll="ls -l"
-alias hispcpb="history | peco | pbcopy"
+alias hispcpb="history 1| peco | pbcopy"
 alias hisg="history | grep "
 alias sz="source ~/.zshrc"
 alias vz="vim ~/.zshrc"
@@ -72,6 +75,7 @@ alias vv="vim ~/.vimrc"
 alias l="ls -al"
 alias g='cd $(ghq root)/$(ghq list | peco)'
 alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
+alias macvim="open . -a MacVim"
 eval "$(rbenv init -)"
 
 
@@ -103,3 +107,12 @@ bindkey '^h' zaw-history
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 source /Users/masubuchiyoshiki/zsh_plugin/zaw/zaw.zsh
+# direnv
+export EDITOR="vim"
+eval "$(direnv hook zsh)"
+
+function gpoc {
+  local current_branch = `git symbolic-ref --short HEAD`
+  git push orgin $current_branch
+}
+bindkey '^G' gpoc

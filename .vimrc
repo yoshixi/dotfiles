@@ -4,14 +4,18 @@ set title "編集中のファイル名を表示
 set showmatch "括弧入力時の対応する括弧を表示
 syntax on "コードの色分け
 set tabstop=2 "インデントをスペース4つ分に設定
-set shiftwidth=1
-set autoindent "オートインデント 
+set shiftwidth=2
+set autoindent "オートインデント
+set cindent
 set expandtab
 set laststatus=2
 set directory=~/.vim/tmp
 set background=dark
+set incsearch
+set ignorecase
+set hlsearch
 colorscheme hybrid
-
+autocmd QuickFixCmdPost *grep* cwindow
 "line feed code
 set encoding=utf-8
 set fileencodings=utf-8,so-2022-jp,euc-jp,sjis
@@ -41,6 +45,8 @@ inoremap (<Enter> ()<Left><CR><ESC><S-o>
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
 let g:syntastic_ruby_checkers = ['rubocop']
 
+
+set nocompatible
 " neobundle path
 if has('vim_starting')
     " 初回起動時のみruntimepathにNeoBundleのパスを指定する
@@ -120,6 +126,8 @@ NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'tacahiroy/ctrlp-funky'
 " CtrlPの拡張プラグイン. コマンド履歴検索
 NeoBundle 'suy/vim-ctrlp-commandline'
+NeoBundle 'mattn/emmet-vim'
+let g:user_emmet_leader_key='<C-x>'
 
 "----------------------------------------------------------
 " CtrlPの設定
@@ -133,16 +141,11 @@ let g:ctrlp_extensions = ['funky', 'commandline'] " CtrlPの拡張として「fu
 command! CtrlPCommandLine call ctrlp#init(ctrlp#commandline#id())
 
 " CtrlPFunkyの有効化
-let g:ctrlp_funky_matchtype = 'path' 
-
-
-
+let g:ctrlp_funky_matchtype = 'path'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle "ctrlpvim/ctrlp.vim"
 
 call neobundle#end()
-
-
-
-
 " ファイルタイプ別のVimプラグイン/インデントを有効にする
 filetype plugin indent on
 
