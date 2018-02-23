@@ -14,6 +14,7 @@ set background=dark
 set incsearch
 set ignorecase
 set hlsearch
+set showcmd   "display incomplete commands
 colorscheme hybrid
 autocmd QuickFixCmdPost *grep* cwindow
 "line feed code
