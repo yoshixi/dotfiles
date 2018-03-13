@@ -11,9 +11,15 @@ set expandtab
 set laststatus=2
 set directory=~/.vim/tmp
 set background=dark
+" 検索ワードの最初の文字を入力した時点で検索を開始する
 set incsearch
 set ignorecase
+" 検索結果をハイライト表示する
 set hlsearch
+" swapは使わない
+set noswapfile
+" 入力中のコマンド表示
+set showcmd
 set showcmd   "display incomplete commands
 colorscheme hybrid
 autocmd QuickFixCmdPost *grep* cwindow
@@ -21,16 +27,20 @@ autocmd QuickFixCmdPost *grep* cwindow
 set encoding=utf-8
 set fileencodings=utf-8,so-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
+" buffew 切り替えで編集中にファイルを保存しなくてよくなる
+set hidden
 
 " fzf
 set rtp+=/usr/local/opt/fzf
 
-
-set clipboard&
-set clipboard^=unnamedplus
+set clipboard=unnamed,autoselect
+" set clipboard&
+" set clipboard^=unnamedplus
 set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
+" grep検索の実行後にQuickFix Listを表示する
+autocmd QuickFixCmdPost *grep* cwindow
 
 inoremap <C-e> <Esc>$a
 inoremap <C-a> <Esc>^i
@@ -65,13 +75,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " インストールするVimプラグインを以下に記述
 " NeoBundle自身を管理
 NeoBundleFetch 'Shougo/neobundle.vim'
-"----------------------------------------------------------
-" ここに追加したいVimプラグインを記述する・・・・・・②
 NeoBundle 'itchyny/lightline.vim'
-
-"----------------------------------------------------------
 " ステータスラインの設定
-"----------------------------------------------------------
 set laststatus=2 " ステータスラインを常に表示
 set showmode " 現在のモードを表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
@@ -80,9 +85,10 @@ set ruler " ステータスラインの右側にカーソルの現在位置を�
 
 set t_Co=256 " iTerm2など既に256色環境なら無くても良い
 syntax enable " 構文に色を付ける
+" slim syntax
+NeoBundle 'slim-template/vim-slim'
+autocmd BufNewFile,BufRead *.slim set ft=slim
 
-
-"----------------------------------------------------------
 " 末尾の全角と半角の空白文字を赤くハイライト
 NeoBundle 'bronson/vim-trailing-whitespace'
 " インデントの可視化
@@ -97,9 +103,7 @@ if has('lua') " lua機能が有効になっている場合・・・・・・①
     NeoBundle 'Shougo/neosnippet-snippets'
 endif
 
-"----------------------------------------------------------
 " neocomplete・neosnippetの設定
-"----------------------------------------------------------
 if neobundle#is_installed('neocomplete.vim')
     " Vim起動時にneocompleteを有効にする
     let g:neocomplete#enable_at_startup = 1
@@ -120,7 +124,19 @@ if neobundle#is_installed('neocomplete.vim')
     imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
 endif
 
+" yank history
+NeoBundle 'LeafCage/yankround.vim'
+" yankround.vim {{{
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-m> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+let g:yankround_max_history = 100
+nnoremap <Leader><C-m> :<C-u>Unite yankround<CR>
+"}}}
 
+" インデントをハイライト
+NeoBundle 'nathanaelkane/vim-indent-guides'
 " 多機能セレクタ
 NeoBundle 'ctrlpvim/ctrlp.vim'
 " CtrlPの拡張プラグイン. 関数検索
@@ -145,6 +161,11 @@ command! CtrlPCommandLine call ctrlp#init(ctrlp#commandline#id())
 let g:ctrlp_funky_matchtype = 'path'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle "ctrlpvim/ctrlp.vim"
+
+" rubocop
+NeoBundle 'scrooloose/syntastic.git'
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers = ['rubocop']
 
 call neobundle#end()
 " ファイルタイプ別のVimプラグイン/インデントを有効にする

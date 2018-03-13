@@ -66,16 +66,19 @@ alias jvcd="javac -d cmp"
 alias tej="trans {en=ja}"
 alias tje="trans {ja=en}"
 alias ll="ls -l"
-alias hispcpb="history 1| peco | pbcopy"
+alias hpp="history 1| peco | pbcopy"
+alias hp="history 1| peco "
 alias hisg="history | grep "
 alias sz="source ~/.zshrc"
 alias vz="vim ~/.zshrc"
 alias home=$HOME
+alias ecry='/Users/masubuchiyoshiki/Sites/nicola/ECRy-web'
 alias vv="vim ~/.vimrc"
 alias l="ls -al"
 alias g='cd $(ghq root)/$(ghq list | peco)'
 alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 alias macvim="open . -a MacVim"
+alias bi='bundle install --path vendor/bundle --jobs=4'
 eval "$(rbenv init -)"
 
 
