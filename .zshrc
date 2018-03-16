@@ -105,7 +105,7 @@ setopt share_history
 setopt hist_no_store
 # 補完時にヒストリを自動的に展開
 setopt hist_expand
-bindkey '^h' zaw-history
+bindkey -v
 # history search
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
