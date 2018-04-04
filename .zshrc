@@ -7,6 +7,7 @@
   setopt auto_pushd # cd -[tab]で過去のディレクトリにひとっ飛びできるようにする
   setopt auto_cd # ディレクトリ名を入力するだけでcdできるようにする
   setopt interactivecomments
+  setopt nonomatch
  }
 
 
@@ -32,8 +33,7 @@
 }
 
 # タブ補完
-autoload -U compinit
-compinit
+autoload -Uz compinit && compinit
 zstyle ':completion:*:default' menu select=1
 
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -56,10 +56,14 @@ alias be="bundle exec"
 alias g="git"
 alias gb="git branch"
 alias gs="git status"
-alias gc="git checkout"
+alias gc="git branch | peco | xargs git checkout"
+alias gcb="git checkout -b"
 alias gcm="git commit -m"
 alias gd="git diff"
-alias gpo="git push origin "
+alias gpo="git symbolic-ref --short HEAD| xargs git push origin "
+alias gphc="git symbolic-ref --short HEAD| xargs -Icurrent_branch git push heroku-st current_branch:master"
+alias gpo="git symbolic-ref --short HEAD| xargs git push origin "
+
 alias gps="$PUSH_STAGING"
 alias gpp="$PUSH_PRODUCTION"
 alias jvcd="javac -d cmp"
@@ -78,6 +82,8 @@ alias l="ls -al"
 alias g='cd $(ghq root)/$(ghq list | peco)'
 alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 alias macvim="open . -a MacVim"
+alias xcode="open -a Xcode"
+alias pp="pwd | pbcopy"
 alias bi='bundle install --path vendor/bundle --jobs=4'
 eval "$(rbenv init -)"
 
@@ -105,6 +111,7 @@ setopt share_history
 setopt hist_no_store
 # 補完時にヒストリを自動的に展開
 setopt hist_expand
+bindkey '^h' zaw-history
 bindkey -v
 # history search
 bindkey '^P' history-beginning-search-backward
@@ -114,8 +121,10 @@ source /Users/masubuchiyoshiki/zsh_plugin/zaw/zaw.zsh
 export EDITOR="vim"
 eval "$(direnv hook zsh)"
 
+# 実行できいない
 function gpoc {
   local current_branch = `git symbolic-ref --short HEAD`
   git push orgin $current_branch
 }
+zle -N gpoc
 bindkey '^G' gpoc

@@ -53,6 +53,9 @@ inoremap (<Enter> ()<Left><CR><ESC><S-o>
 "yankしない
 nnoremap x "_x
 nnoremap s "_s
+" 複数行インデント
+vnoremap > >gv
+vnoremap < <gv
 
 " --------------------------------
 " rubocop
