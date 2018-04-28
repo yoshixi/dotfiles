@@ -38,7 +38,11 @@ set clipboard=unnamed,autoselect
 " set clipboard^=unnamedplus
 set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
-
+" bell
+set t_vb=
+set novisualbell
+set noerrorbells
+set belloff=all
 " grep検索の実行後にQuickFix Listを表示する
 autocmd QuickFixCmdPost *grep* cwindow
 
