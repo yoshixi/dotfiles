@@ -35,7 +35,6 @@
 # タブ補完
 autoload -Uz compinit && compinit
 zstyle ':completion:*:default' menu select=1
-
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH=/usr/local/bin:/usr/local/share/python:$PATH
@@ -47,7 +46,7 @@ export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go/src
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
+eval "$(rbenv init -)"
 
 
 # alias
@@ -86,9 +85,23 @@ alias macvim="open . -a MacVim"
 alias xcode="open -a Xcode"
 alias pp="pwd | pbcopy"
 alias bi='bundle install --path vendor/bundle --jobs=4'
-eval "$(rbenv init -)"
 
-
+alias dc='docker-compose '
+alias datt='docker attach'
+alias dcb='docker-compose build'
+alias dclogs='docker-compose logs'
+alias dcu='docker-compose up'
+alias dcstop='docker-compose stop'
+alias ddiff='docker diff'
+alias deb='dexbash'
+alias dimg='docker images'
+alias dins='docker inspect'
+alias dps='docker ps'
+alias drm='docker rm'
+alias drmi='docker rmi'
+alias drun='docker run'
+alias dstart='docker start'
+alias dstop='docker stop'
 #directories
 alias mamp="/Applications/MAMP/htdocs"
 alias download="/Users/masubuchiyoshiki/Downloads"
@@ -129,3 +142,5 @@ function gpoc {
 }
 zle -N gpoc
 bindkey '^G' gpoc
+
+" yoshi
