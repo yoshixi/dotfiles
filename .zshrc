@@ -86,6 +86,7 @@ alias xcode="open -a Xcode"
 alias pp="pwd | pbcopy"
 alias bi='bundle install --path vendor/bundle --jobs=4'
 
+alias dc-rails-mysql="cp /Users/yoshikimasubuchi/.ghq/github.com/yoshixj/dotfiles/docker-rails-mysql/Dockerfile . && cp /Users/yoshikimasubuchi/.ghq/github.com/yoshixj/dotfiles/docker-rails-mysql/docker-compose.yml . "
 alias dc='docker-compose '
 alias datt='docker attach'
 alias dcb='docker-compose build'
@@ -143,4 +144,3 @@ function gpoc {
 zle -N gpoc
 bindkey '^G' gpoc
 
-" yoshi
