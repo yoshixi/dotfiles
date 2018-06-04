@@ -3,11 +3,12 @@ set number "行番号を表示する
 set title "編集中のファイル名を表示
 set showmatch "括弧入力時の対応する括弧を表示
 syntax on "コードの色分け
+set expandtab
 set tabstop=2 "インデントをスペース4つ分に設定
 set shiftwidth=2
 set autoindent "オートインデント
 set cindent
-set expandtab
+set smartindent
 set laststatus=2
 set directory=~/.vim/tmp
 set background=dark
@@ -21,7 +22,7 @@ set noswapfile
 " 入力中のコマンド表示
 set showcmd
 set showcmd   "display incomplete commands
-colorscheme hybrid
+" colorscheme hybrid
 autocmd QuickFixCmdPost *grep* cwindow
 "line feed code
 set encoding=utf-8
@@ -66,7 +67,7 @@ vnoremap < <gv
 " --------------------------------
 " syntastic_mode_mapをactiveにするとバッファ保存時にsyntasticが走る
 " active_filetypesに、保存時にsyntasticを走らせるファイルタイプを指定する
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['ruby'] }
 let g:syntastic_ruby_checkers = ['rubocop']
 
 
