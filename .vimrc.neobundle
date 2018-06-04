@@ -47,6 +47,16 @@ set belloff=all
 " grep検索の実行後にQuickFix Listを表示する
 autocmd QuickFixCmdPost *grep* cwindow
 
+" ステータスラインの設定
+set laststatus=2 " ステータスラインを常に表示
+set showmode " 現在のモードを表示
+set showcmd " 打ったコマンドをステータスラインの下に表示
+set ruler " ステータスラインの右側にカーソルの現在位置を表示する
+
+
+set t_Co=256 " iTerm2など既に256色環境なら無くても良い
+syntax enable " 構文に色を付ける
+
 vnoremap * "zy:let @/ = @z<CR>n
 inoremap <C-e> <Esc>$a
 inoremap <C-a> <Esc>^i
@@ -90,15 +100,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " NeoBundle自身を管理
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'itchyny/lightline.vim'
-" ステータスラインの設定
-set laststatus=2 " ステータスラインを常に表示
-set showmode " 現在のモードを表示
-set showcmd " 打ったコマンドをステータスラインの下に表示
-set ruler " ステータスラインの右側にカーソルの現在位置を表示する
-
-
-set t_Co=256 " iTerm2など既に256色環境なら無くても良い
-syntax enable " 構文に色を付ける
 " slim syntax
 NeoBundle 'slim-template/vim-slim'
 autocmd BufNewFile,BufRead *.slim set ft=slim
@@ -163,7 +164,6 @@ let g:user_emmet_leader_key='<C-x>'
 "----------------------------------------------------------
 " CtrlPの設定
 "----------------------------------------------------------
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*
 let g:ctrlp_match_window = 'order:ttb,min:20,max:20,results:100' " マッチウインドウの設定. 「下部に表示, 大きさ20行で固定, 検索結果100件」
 let g:ctrlp_show_hidden = 1 " .(ドット)から始まるファイルも検索対象にする
 let g:ctrlp_types = ['fil'] "ファイル検索のみ使用
@@ -174,9 +174,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*
 " CtrlPCommandLineの有効化
 command! CtrlPCommandLine call ctrlp#init(ctrlp#commandline#id())
-
 " CtrlPFunkyの有効化
 let g:ctrlp_funky_matchtype = 'path'
 NeoBundle 'scrooloose/nerdtree'
