@@ -1,6 +1,8 @@
 display set
+filetype off
+filetype plugin indent off
 set number "行番号を表示する
-set title "編集中のファイル名を表示
+set title
 set showmatch "括弧入力時の対応する括弧を表示
 syntax on "コードの色分け
 set expandtab
@@ -22,8 +24,9 @@ set noswapfile
 " 入力中のコマンド表示
 set showcmd
 set showcmd   "display incomplete commands
-" colorscheme hybrid
-autocmd QuickFixCmdPost *grep* cwindow
+" colorscheme papaya
+" let g:papaya_gui_color='blue'
+colo murphy 
 "line feed code
 set encoding=utf-8
 set fileencodings=utf-8,so-2022-jp,euc-jp,sjis
@@ -52,8 +55,6 @@ set laststatus=2 " ステータスラインを常に表示
 set showmode " 現在のモードを表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
-
-
 set t_Co=256 " iTerm2など既に256色環境なら無くても良い
 syntax enable " 構文に色を付ける
 
@@ -64,22 +65,12 @@ inoremap { {}<Left>
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap ( ()<ESC>i
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
-
 "yankしない
 nnoremap x "_x
 nnoremap s "_s
 " 複数行インデント
 vnoremap > >gv
 vnoremap < <gv
-
-" --------------------------------
-" rubocop
-" --------------------------------
-" syntastic_mode_mapをactiveにするとバッファ保存時にsyntasticが走る
-" active_filetypesに、保存時にsyntasticを走らせるファイルタイプを指定する
-let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['ruby'] }
-let g:syntastic_ruby_checkers = ['rubocop']
-
 
 set nocompatible
 " neobundle path
@@ -182,10 +173,23 @@ let g:ctrlp_funky_matchtype = 'path'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle "ctrlpvim/ctrlp.vim"
 
+" --------------------------------
 " rubocop
+" --------------------------------
+" syntastic_mode_mapをactiveにするとバッファ保存時にsyntasticが走る
+" active_filetypesに、保存時にsyntasticを走らせるファイルタイプを指定する
 NeoBundle 'scrooloose/syntastic.git'
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
 let g:syntastic_ruby_checkers = ['rubocop']
+nnoremap <C-a> :w<CR>:SyntasticCheck<CR>
+
 
 call neobundle#end()
 " ファイルタイプ別のVimプラグイン/インデントを有効にする
