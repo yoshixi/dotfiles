@@ -157,3 +157,4 @@ case $TERM in
 	 *) LANG=ja_JP.UTF-8 ;;
 esac
 
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"

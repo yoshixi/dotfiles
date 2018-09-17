@@ -14,6 +14,7 @@ set smartindent
 set laststatus=2
 set directory=~/.vim/tmp
 set background=dark
+set cursorline
 " 検索ワードの最初の文字を入力した時点で検索を開始する
 set incsearch
 set ignorecase
@@ -71,6 +72,12 @@ nnoremap s "_s
 " 複数行インデント
 vnoremap > >gv
 vnoremap < <gv
+
+" 検索結果が中心にくるように
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
 
 set nocompatible
 " neobundle path
@@ -186,10 +193,15 @@ NeoBundle 'scrooloose/syntastic.git'
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 0
 " let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_ruby_checkers = ['rubocop']
-nnoremap <C-a> :w<CR>:SyntasticCheck<CR>
+nnoremap <C-s> :w<CR>:SyntasticCheck<CR>
 
+NeoBundle 'scrooloose/syntastic.git'
+
+" 自動保存
+NeoBundle 'vim-scripts/vim-auto-save'
+let g:auto_save = 1
 
 call neobundle#end()
 " ファイルタイプ別のVimプラグイン/インデントを有効にする
@@ -198,5 +210,6 @@ filetype plugin indent on
 " 未インストールのVimプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定・・・・・・③
 NeoBundleCheck
 
+let g:auto_save_in_insert_mode = 0
 "参考
 "https://qiita.com/ahiruman5/items/4f3c845500c172a02935
