@@ -47,7 +47,7 @@ export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go/src
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 eval "$(rbenv init -)"
-
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 
 # alias
 #commnads
@@ -84,6 +84,8 @@ alias g='cd $(ghq root)/$(ghq list | peco)'
 alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 alias macvim="open . -a MacVim"
 alias xcode="open -a Xcode"
+alias a="atom "
+alias mine="/usr/local/bin/mine "
 alias pp="pwd | pbcopy"
 alias bi='bundle install --path vendor/bundle --jobs=4'
 
@@ -99,6 +101,7 @@ alias deb='dexbash'
 alias dimg='docker images'
 alias dins='docker inspect'
 alias dps='docker ps'
+alias dbuild='docker build'
 alias drm='docker rm'
 alias drmi='docker rmi'
 alias drun='docker run'
@@ -110,12 +113,17 @@ alias tkills='tmux kill-session -t '
 alias tkillw='tmux kill-window -t '
 alias tkillp='tmux kill-pane -t '
 
+alias du='du_pretty'
 #directories
 alias mamp="/Applications/MAMP/htdocs"
 alias download="/Users/masubuchiyoshiki/Downloads"
 
 #nicola
 alias rubo="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop"
+alias ruboa="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop -a"
+
+# for gas
+alias nclasp="npx clasp "
 
 # 履歴ファイルの保存先
 export HISTFILE=${HOME}/.zsh_history
