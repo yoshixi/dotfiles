@@ -46,8 +46,13 @@ export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go/src
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+# node
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+# ruby
 eval "$(rbenv init -)"
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+
+# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 
 # alias
 #commnads
@@ -89,6 +94,7 @@ alias mine="/usr/local/bin/mine "
 alias pp="pwd | pbcopy"
 alias bi='bundle install --path vendor/bundle --jobs=4'
 
+alias d='docker '
 alias dc-rails-mysql="cp /Users/yoshikimasubuchi/.ghq/github.com/yoshixj/dotfiles/docker-rails-mysql/Dockerfile . && cp /Users/yoshikimasubuchi/.ghq/github.com/yoshixj/dotfiles/docker-rails-mysql/docker-compose.yml . "
 alias dc='docker-compose '
 alias datt='docker attach'
@@ -121,9 +127,14 @@ alias download="/Users/masubuchiyoshiki/Downloads"
 #nicola
 alias rubo="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop"
 alias ruboa="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop -a"
+alias rails-ruboa="git diff --name-only --staged | grep '\.rb$' | grep -v 'db/schema.rb' |  xargs bundle exec rubocop -a --force-exclusion"
+
 
 # for gas
 alias nclasp="npx clasp "
+
+# yaml-check
+alias yml='ruby -ryaml -e "p YAML.load(STDIN.read)" < '
 
 # 履歴ファイルの保存先
 export HISTFILE=${HOME}/.zsh_history
@@ -166,3 +177,9 @@ case $TERM in
 esac
 
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc'; fi
