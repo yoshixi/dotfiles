@@ -1,3 +1,5 @@
+if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+
 # If you come from bash you might have to change your $PATH.
 : "一般的な設定" && {
   autoload -U compinit && compinit -d ${COMPDUMPFILE} # 補完機能の強化
@@ -37,14 +39,13 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*:default' menu select=1
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-export PATH=/usr/local/bin:/usr/local/share/python:$PATH
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 export PATH=$PATH:/usr/local/mysql/bin
 # Path to your oh-my-zsh installation.
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 # go path
 export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME/go/src
+export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # node
 export PATH=$HOME/.nodebrew/current/bin:$PATH
@@ -54,7 +55,15 @@ eval "$(rbenv init -)"
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 
+# libxml2
+export PATH="/usr/local/opt/libxml2/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/libxml2/lib"
+export CPPFLAGS="-I/usr/local/opt/libxml2/include"
+export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
+
 # alias
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+#
 #commnads
 alias be="bundle exec"
 alias g="git"
@@ -136,6 +145,11 @@ alias nclasp="npx clasp "
 # yaml-check
 alias yml='ruby -ryaml -e "p YAML.load(STDIN.read)" < '
 
+# go ghq管理 https://qiita.com/miyaz/items/3c4c32ed5ae13f29aa4c#_reference-cebc288b6d802dd5394c
+alias g='REPO=$(ghq list | sort -u | peco);for GHQ_ROOT in $(ghq root -all);do [ -d $GHQ_ROOT/$REPO ] && cd $GHQ_ROOT/$REPO;done'
+alias gg='REPO=$(ghq list | sort -u | peco);for GOPATH in $(ghq root -all);do [ -d $GOPATH/$REPO ] && cd $GOPATH/$REPO;done'
+alias gh='hub browse $(ghq list | grep github.com | peco | cut -d "/" -f 2,3)'
+
 # 履歴ファイルの保存先
 export HISTFILE=${HOME}/.zsh_history
 # メモリに保存される履歴の件数
@@ -169,6 +183,13 @@ function gpoc {
 }
 zle -N gpoc
 bindkey '^G' gpoc
+
+# pyenv
+export PYENV_ROOT=${HOME}/.pyenv
+if [ -d "${PYENV_ROOT}" ]; then
+    export PATH=${PYENV_ROOT}/bin:$PATH
+    eval "$(pyenv init -)"
+fi
 
 # 文字化け用
 case $TERM in
