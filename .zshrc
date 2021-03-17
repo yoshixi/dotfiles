@@ -19,7 +19,7 @@ if which plenv > /dev/null; then eval "$(plenv init -)"; fi
   source $ZPLUG_HOME/init.zsh
   zplug "zsh-users/zsh-completions" # 多くのコマンドに対応する入力補完 … https://github.com/zsh-users/zsh-completions
   zplug "mafredri/zsh-async" # "sindresorhus/pure"が依存している
-  zplug "yoshixj/pure", use:pure.zsh, as:theme, from:github # 美しく最小限で高速なプロンプト … https://github.com/sindresorhus/pure
+  zplug "sindresorhus/pure", use:pure.zsh, as:theme, from:github # 美しく最小限で高速なプロンプト … https://github.com/sindresorhus/pure
   zplug "zsh-users/zsh-syntax-highlighting", defer:2 # fishシェル風のシンタクスハイライト … https://github.com/zsh-users/zsh-syntax-highlighting
   zplug "supercrabtree/k" # git情報を含んだファイルリストを表示するコマンド … https://github.com/supercrabtree/k
   zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf # あいまい検索ができるコマンド … https://github.com/junegunn/fzf
@@ -33,6 +33,16 @@ if which plenv > /dev/null; then eval "$(plenv init -)"; fi
   zplug check || zplug install
   zplug load
 }
+
+autoload -U promptinit; promptinit
+# optionally define some options
+PURE_CMD_MAX_EXEC_TIME=10
+# change the path color
+zstyle :prompt:pure:path color white
+# change the color for both `prompt:success` and `prompt:error`
+zstyle ':prompt:pure:prompt:*' color cyan
+# turn on git stash status
+zstyle :prompt:pure:git:stash show yes
 
 # タブ補完
 autoload -Uz compinit && compinit
@@ -61,23 +71,28 @@ export LDFLAGS="-L/usr/local/opt/libxml2/lib"
 export CPPFLAGS="-I/usr/local/opt/libxml2/include"
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
 
+# flutter
+export PATH="$PATH:/Users/yoshikimasubuchi/.ghq/github.com/flutter/flutter/bin"
+
 # alias
+
+alias vim="nvim"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 #
 #commnads
 alias be="bundle exec"
-alias g="git"
 alias gb="git branch"
 alias gs="git status --short --branch"
 alias gc="git checkout "
 alias gcp="git branch | peco | xargs git checkout"
 alias gcb="git checkout -b"
 alias gcm="git commit -m"
-alias gd="git diff --color-words"
+alias gd="git diff --patience"
 alias gdn="git diff --name-only"
 alias gl="git log --graph --decorate --oneline"
 alias gphc="git symbolic-ref --short HEAD| xargs -Icurrent_branch git push heroku-st current_branch:master"
 alias gpo="git symbolic-ref --short HEAD| xargs git push origin "
+alias cm="cat ~/.gitcommitmessage_sample | peco | xargs -I {} echo  "'{}'" "
 
 alias gps="$PUSH_STAGING"
 alias gpp="$PUSH_PRODUCTION"
@@ -92,10 +107,8 @@ alias sz="source ~/.zshrc"
 alias vz="vim ~/.zshrc"
 alias home=$HOME
 alias ecry='/Users/masubuchiyoshiki/Sites/nicola/ECRy-web'
-alias vv="vim ~/.vimrc"
+alias vv="vim ~/.config/nvim"
 alias l="ls -al"
-alias g='cd $(ghq root)/$(ghq list | peco)'
-alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 alias macvim="open . -a MacVim"
 alias xcode="open -a Xcode"
 alias a="atom "
@@ -110,6 +123,7 @@ alias datt='docker attach'
 alias dcb='docker-compose build'
 alias dclogs='docker-compose logs'
 alias dcu='docker-compose up'
+alias dcr='docker-compose run --rm'
 alias dcstop='docker-compose stop'
 alias ddiff='docker diff'
 alias deb='dexbash'
@@ -133,10 +147,11 @@ alias du='du_pretty'
 alias mamp="/Applications/MAMP/htdocs"
 alias download="/Users/masubuchiyoshiki/Downloads"
 
-#nicola
+# ruby
 alias rubo="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop"
 alias ruboa="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop -a"
 alias rails-ruboa="git diff --name-only --staged | grep '\.rb$' | grep -v 'db/schema.rb' |  xargs bundle exec rubocop -a --force-exclusion"
+alias grspec="git diff --name-only --staged | grep '\_spec.rb$' | xargs -t bundle exec rspec "
 
 
 # for gas
@@ -146,9 +161,11 @@ alias nclasp="npx clasp "
 alias yml='ruby -ryaml -e "p YAML.load(STDIN.read)" < '
 
 # go ghq管理 https://qiita.com/miyaz/items/3c4c32ed5ae13f29aa4c#_reference-cebc288b6d802dd5394c
-alias g='REPO=$(ghq list | sort -u | peco);for GHQ_ROOT in $(ghq root -all);do [ -d $GHQ_ROOT/$REPO ] && cd $GHQ_ROOT/$REPO;done'
-alias gg='REPO=$(ghq list | sort -u | peco);for GOPATH in $(ghq root -all);do [ -d $GOPATH/$REPO ] && cd $GOPATH/$REPO;done'
-alias gh='hub browse $(ghq list | grep github.com | peco | cut -d "/" -f 2,3)'
+alias gh='hub browse $(ghq list -p | peco | cut -d "/" -f 2,3)'
+alias gh='hub browse $(ghq list -p | grep github.com | peco | cut -d "/" -f 2,3)'
+#alias g='cd $(ghq root)/$(ghq list -p| peco)'
+alias g='cd $(ghq list -p| peco)'
+
 
 # 履歴ファイルの保存先
 export HISTFILE=${HOME}/.zsh_history
@@ -171,18 +188,11 @@ bindkey -v
 # history search
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
-source /Users/yoshikimasubuchi/.ghq/github.com/zsh-users/zaw/zaw.zsh
+source /Users/yoshikimasubuchi/.
 # direnv
 export EDITOR="vim"
 eval "$(direnv hook zsh)"
 
-# 実行できいない
-function gpoc {
-  local current_branch = `git symbolic-ref --short HEAD`
-  git push orgin $current_branch
-}
-zle -N gpoc
-bindkey '^G' gpoc
 
 # pyenv
 export PYENV_ROOT=${HOME}/.pyenv
@@ -204,3 +214,8 @@ if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc' ]; then . '/User
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc'; fi
+
+[[ -s "/Users/yoshikimasubuchi/.gvm/scripts/gvm" ]] && source "/Users/yoshikimasubuchi/.gvm/scripts/gvm"
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
