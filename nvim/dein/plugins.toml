@@ -1,0 +1,159 @@
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+rev = "release"
+merged = 0
+hook_add = """
+  nnoremap ,j :CocCommand prettier.formatFile<CR>
+
+  nmap cd <Plug>(coc-definition)
+"""
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo =  'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo =  'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo =  'mattn/vim-lsp-settings'
+depends = ['/vim-lsp']
+hook_add ='''
+  function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> <C-]> <plug>(lsp-definition)
+    nmap <buffer> <f2> <plug>(lsp-rename)
+    nmap <buffer> <Leader>d <plug>(lsp-type-definition)
+    nmap <buffer> <Leader>r <plug>(lsp-references)
+    nmap <buffer> <Leader>i <plug>(lsp-implementation)
+    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+  endfunction
+  
+  augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  augroup END
+  command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+  
+  let g:lsp_diagnostics_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
+  " let g:asyncomplete_auto_popup = 1
+  " let g:asyncomplete_auto_completeopt = 0
+  let g:asyncomplete_popup_delay = 200
+  let g:lsp_text_edit_enabled = 1
+  let g:lsp_preview_float = 1
+  let g:lsp_diagnostics_float_cursor = 1
+  let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+  
+  let g:lsp_settings = {}
+  let g:lsp_settings['gopls'] = {
+    \  'workspace_config': {
+    \    'usePlaceholders': v:true,
+    \    'analyses': {
+    \      'fillstruct': v:true,
+    \    },
+    \  },
+    \  'initialization_options': {
+    \    'usePlaceholders': v:true,
+    \    'analyses': {
+    \      'fillstruct': v:true,
+    \    },
+    \  },
+    \}
+'''
+
+[[plugins]]
+repo =  'mattn/vim-lsp-icons'
+
+[[plugins]]
+repo =  'hrsh7th/vim-vsnip'
+
+[[plugins]]
+repo =  'hrsh7th/vim-vsnip-integ'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+hook_add ='''
+colorscheme iceberg
+'''
+
+## fern start
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+
+[[plugins]]
+repo = 'antoinemadec/FixCursorHold.nvim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+## fern end
+
+[[plugins]]
+repo = 'vim-scripts/vim-auto-save'
+hook_add ='''
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0
+'''
+
+[[plugins]]
+repo = "airblade/vim-gitgutter"
+
+[[plugins]]
+repo = "tpope/vim-fugitive"
+
+[[plugins]]
+repo = "alvan/vim-closetag"
+hook_add ='''
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
+'''
+
+[[plugins]]
+repo = 'machakann/vim-highlightedyank'
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+[[plugins]]
+repo = 'ngmy/vim-rubocop'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugin]]
+repo = 'mattn/vim-goimports'
+hook_add ='''
+ let g:goimports = 1
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = '0'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+hook_add = '''
+  nnoremap <C-f> :GFiles<CR>
+
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
+    \   fzf#vim#with_preview({'options': '--exact --reverse'}, 'right:50%:wrap'))
+'''
+
+[[plugins]]
+repo = 'jparise/vim-graphql'

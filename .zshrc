@@ -62,6 +62,7 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 # ruby
 eval "$(rbenv init -)"
 
+export GHQROOT="/Users/yoshikimasubuchi/.ghq"
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 
@@ -72,7 +73,7 @@ export CPPFLAGS="-I/usr/local/opt/libxml2/include"
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
 
 # flutter
-export PATH="$PATH:/Users/yoshikimasubuchi/.ghq/github.com/flutter/flutter/bin"
+export PATH="$PATH:$GHQROOT/github.com/flutter/flutter/bin"
 
 # alias
 
@@ -107,7 +108,7 @@ alias sz="source ~/.zshrc"
 alias vz="vim ~/.zshrc"
 alias home=$HOME
 alias ecry='/Users/masubuchiyoshiki/Sites/nicola/ECRy-web'
-alias vv="vim ~/.config/nvim"
+alias vv="vim ${GHQROOT}/github.com/yoshixj/dotfiles/nvim"
 alias l="ls -al"
 alias macvim="open . -a MacVim"
 alias xcode="open -a Xcode"
@@ -117,7 +118,6 @@ alias pp="pwd | pbcopy"
 alias bi='bundle install --path vendor/bundle --jobs=4'
 
 alias d='docker '
-alias dc-rails-mysql="cp /Users/yoshikimasubuchi/.ghq/github.com/yoshixj/dotfiles/docker-rails-mysql/Dockerfile . && cp /Users/yoshikimasubuchi/.ghq/github.com/yoshixj/dotfiles/docker-rails-mysql/docker-compose.yml . "
 alias dc='docker-compose '
 alias datt='docker attach'
 alias dcb='docker-compose build'
@@ -152,7 +152,6 @@ alias rubo="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop
 alias ruboa="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop -a"
 alias rails-ruboa="git diff --name-only --staged | grep '\.rb$' | grep -v 'db/schema.rb' |  xargs bundle exec rubocop -a --force-exclusion"
 alias grspec="git diff --name-only --staged | grep '\_spec.rb$' | xargs -t bundle exec rspec "
-
 
 # for gas
 alias nclasp="npx clasp "
