@@ -98,7 +98,8 @@ function! s:map_language_client_functions() abort
         nnoremap <silent> lr        :<C-u>call LanguageClient#textDocument_rename()<CR>
         nnoremap <silent> <Leader>i :<C-u>call <SID>ls_toggle_document_hover()<CR>
         " nnoremap <silent> gd        :<C-u>call LanguageClient#textDocument_definition({'handle': v:true}, function('Language_client_definition_callback'))<CR>
-        nnoremap ld        :<C-u>call LanguageClient#textDocument_definition()<CR>
+        nnoremap <silent> gd        :<C-u>call LanguageClient#textDocument_definition()<CR>
+        nnoremap <C-]>        :<C-u>call LanguageClient#textDocument_definition()<CR>
         nnoremap <silent> gsi       :<C-u>silent call <SID>ls_toggle_document_highlight()<CR>
         nnoremap <silent> gc        :<C-u>silent Vista finder fzf:lcn<CR>
     endif
