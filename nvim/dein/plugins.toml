@@ -1,79 +1,31 @@
 [[plugins]]
-repo = 'neoclide/coc.nvim'
-rev = "release"
-merged = 0
-hook_add = """
-  nnoremap ,j :CocCommand prettier.formatFile<CR>
-
-  nmap cd <Plug>(coc-definition)
-"""
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-
-[[plugins]]
-repo =  'prabirshrestha/asyncomplete-lsp.vim'
-
-[[plugins]]
-repo =  'prabirshrestha/vim-lsp'
-
-[[plugins]]
-repo =  'mattn/vim-lsp-settings'
-depends = ['/vim-lsp']
-hook_add ='''
-  function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> <C-]> <plug>(lsp-definition)
-    nmap <buffer> <f2> <plug>(lsp-rename)
-    nmap <buffer> <Leader>d <plug>(lsp-type-definition)
-    nmap <buffer> <Leader>r <plug>(lsp-references)
-    nmap <buffer> <Leader>i <plug>(lsp-implementation)
-    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-  endfunction
-  
-  augroup lsp_install
-    au!
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-  augroup END
-  command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
-  
-  let g:lsp_diagnostics_enabled = 1
-  let g:lsp_diagnostics_echo_cursor = 1
-  " let g:asyncomplete_auto_popup = 1
-  " let g:asyncomplete_auto_completeopt = 0
-  let g:asyncomplete_popup_delay = 200
-  let g:lsp_text_edit_enabled = 1
-  let g:lsp_preview_float = 1
-  let g:lsp_diagnostics_float_cursor = 1
-  let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
-  
-  let g:lsp_settings = {}
-  let g:lsp_settings['gopls'] = {
-    \  'workspace_config': {
-    \    'usePlaceholders': v:true,
-    \    'analyses': {
-    \      'fillstruct': v:true,
-    \    },
-    \  },
-    \  'initialization_options': {
-    \    'usePlaceholders': v:true,
-    \    'analyses': {
-    \      'fillstruct': v:true,
-    \    },
-    \  },
-    \}
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+hook_add = '''
+source ~/.config/nvim/rc/LanguageClient-neovim.vim
 '''
 
 [[plugins]]
-repo =  'mattn/vim-lsp-icons'
+repo = 'w0rp/ale'
 
 [[plugins]]
-repo =  'hrsh7th/vim-vsnip'
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+  let g:deoplete#enable_at_startup = 1
+'''
 
 [[plugins]]
-repo =  'hrsh7th/vim-vsnip-integ'
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+
+# [[plugins]]
+# repo = 'mattn/vim-goimports'
 
 [[plugins]]
 repo = 'cespare/vim-toml'
@@ -132,12 +84,6 @@ repo = 'vim-airline/vim-airline'
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 
-[[plugin]]
-repo = 'mattn/vim-goimports'
-hook_add ='''
- let g:goimports = 1
-'''
-
 [[plugins]]
 repo = 'junegunn/fzf'
 build = './install --all'
@@ -157,3 +103,35 @@ hook_add = '''
 
 [[plugins]]
 repo = 'jparise/vim-graphql'
+
+
+[[plugins]]
+repo = 'posva/vim-vue'
+hook_add = '''
+  autocmd FileType vue syntax sync fromstart
+'''
+
+[[plugins]]
+repo = 'prettier/vim-prettier'
+build = 'npm install'
+on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']
+hook_add = '''
+source ~/.config/nvim/rc/vim-prettier.rc.vim
+'''
+
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+
+
+[[plugins]]
+repo = 'vim-syntastic/syntastic'
+hook_add = '''
+source ~/.config/nvim/rc/syntastic.rc.vim
+'''
+
+[[plugins]]
+repo = 'mtscout6/syntastic-local-eslint.vim'
+hook_add = '''
+'''
+
