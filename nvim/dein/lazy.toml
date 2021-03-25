@@ -36,9 +36,25 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
 '''
 
 [[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+# ruby START
+[[plugins]]
 repo = 'ngmy/vim-rubocop'
 on_ft = ['ruby']
 
 [[plugins]]
-repo = 'cespare/vim-toml'
-on_ft = ['toml']
+repo = 'noprompt/vim-yardoc'
+on_ft = ['ruby']
+
+[[plugins]]
+repo = 'thoughtbot/vim-rspec'
+on_ft = ['ruby']
+hook_add ='''
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+'''
+# ruby END

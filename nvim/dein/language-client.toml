@@ -1,0 +1,17 @@
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+on_ft = ['go', 'ruby']
+hook_add = '''
+source ~/.config/nvim/rc/LanguageClient-neovim.vim
+'''
+
+[[plugins]]
+repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+  let g:deoplete#enable_at_startup = 1
+'''

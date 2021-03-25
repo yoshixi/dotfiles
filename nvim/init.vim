@@ -21,4 +21,3 @@ endfunction
 call s:load('settings')
 call s:load('plugins')
 
-
