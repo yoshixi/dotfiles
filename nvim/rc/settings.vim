@@ -13,4 +13,4 @@ set clipboard=unnamed
 " https://qiita.com/itmammoth/items/312246b4b7688875d023
 nmap # <Space><Space>:%s/<C-r>///g<Left><Left>
 inoremap <C-]> <Esc><Right>
-
+noremap <Leader>v vey

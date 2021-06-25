@@ -1,0 +1,8 @@
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+rev = "release"
+merged = 0
+hook_add = '''
+source ~/.config/nvim/rc/coc.vim
+'''
+

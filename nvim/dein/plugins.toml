@@ -1,4 +1,10 @@
 [[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'simeji/winresizer'
+
+[[plugins]]
 repo = 'thinca/vim-quickrun'
 
 [[plugins]]

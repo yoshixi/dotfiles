@@ -7,14 +7,15 @@
     "typescriptreact",
     "vue"
   ],
- " coc.preferences.formatOnSaveFiletypes": [ 
+  " coc.preferences.formatOnSaveFiletypes": [
     "html",
     "css",
     "javascript",
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "vue"
+    "vue",
+    "ruby"
   ],
   "languageserver": {
     "golang": {
@@ -22,5 +23,6 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     }
-  }
+  },
+  "codeLens.enable": true
 }

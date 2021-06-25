@@ -39,6 +39,7 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
 
+
 # ruby START
 [[plugins]]
 repo = 'ngmy/vim-rubocop'
@@ -57,4 +58,8 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 '''
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+on_ft = ['ruby']
 # ruby END

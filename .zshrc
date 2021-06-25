@@ -58,7 +58,9 @@ export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # node
-export PATH=$HOME/.nodebrew/current/bin:$PATH
+eval "$(anyenv init -)"
+eval "$(nodenv init -)"
+
 # ruby
 eval "$(rbenv init -)"
 
@@ -110,6 +112,7 @@ alias home=$HOME
 alias ecry='/Users/masubuchiyoshiki/Sites/nicola/ECRy-web'
 alias vv="vim ${GHQROOT}/github.com/yoshixj/dotfiles/nvim"
 alias l="ls -al"
+alias rm="rm -i"
 alias macvim="open . -a MacVim"
 alias xcode="open -a Xcode"
 alias a="atom "

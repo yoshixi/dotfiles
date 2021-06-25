@@ -7,11 +7,12 @@ hook_add = '''
 source ~/.config/nvim/rc/LanguageClient-neovim.vim
 '''
 
-[[plugins]]
-repo = 'w0rp/ale'
+# [[plugins]]
+# repo = 'w0rp/ale'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+on_ft = ['go', 'ruby']
 hook_add = '''
   let g:deoplete#enable_at_startup = 1
 '''
