@@ -78,10 +78,10 @@ export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
 export PATH="$PATH:$GHQROOT/github.com/flutter/flutter/bin"
 
 # alias
-
 alias vim="nvim"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-#
+alias sshadd="ssh-add ~/.ssh/id_rsa"
+
 #commnads
 alias be="bundle exec"
 alias gb="git branch"

@@ -1,12 +1,12 @@
 
 [[plugins]]
 repo = 'jparise/vim-graphql'
-on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']
+on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown', 'typescriptreact', 'javascriptreact']
 
 
 [[plugins]]
 repo = 'posva/vim-vue'
-on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']
+on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown', 'typescriptreact', 'javascriptreact']
 hook_add = '''
   autocmd FileType vue syntax sync fromstart
 '''
@@ -14,26 +14,44 @@ hook_add = '''
 [[plugins]]
 repo = 'prettier/vim-prettier'
 build = 'npm install'
-on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']
+on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown', 'typescriptreact', 'javascriptreact']
 hook_add = '''
 source ~/.config/nvim/rc/vim-prettier.rc.vim
 '''
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
-on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']
+on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown', 'typescriptreact', 'javascriptreact']
 
 [[plugins]]
 repo = 'mtscout6/syntastic-local-eslint.vim'
 hook_add = '''
 '''
-on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']
+on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown', 'typescriptreact', 'javascriptreact']
 
 [[plugins]]
 repo = "alvan/vim-closetag"
 hook_add ='''
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.erb,*.php,*.vue'
 '''
+
+[[plugins]]
+repo = "Valloric/MatchTagAlways"
+hook_add ='''
+let g:mta_use_matchparen_group = 1
+
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'php' : 1,
+    \ 'typescript' : 1,
+    \ 'typescriptreact' : 1,
+    \ 'vue' : 1,
+    \}
+'''
+on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown', 'typescriptreact', 'javascriptreact']
 
 [[plugins]]
 repo = 'cespare/vim-toml'

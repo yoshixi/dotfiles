@@ -25,6 +25,9 @@ colorscheme iceberg
 ## fern start
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
+hook_add='''
+let g:fern#default_hidden = 1
+'''
 
 [[plugins]]
 repo = 'antoinemadec/FixCursorHold.nvim'

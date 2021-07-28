@@ -1,4 +1,5 @@
 {
+  "eslint.autoFix": true,
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": [
     "javascript",
@@ -22,6 +23,11 @@
       "command": "gopls",
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
+    },
+    "graphql": {
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "filetypes": ["typescript", "typescriptreact", "graphql", "vue"]
     }
   },
   "codeLens.enable": true

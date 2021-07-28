@@ -1,9 +1,16 @@
 let g:coc_global_extensions = ['coc-solargraph']
+let g:coc_global_extensions = [
+  \ 'coc-solargraph',
+  \ 'coc-json',
+  \ 'coc-tsserver',
+  \ 'coc-prettier',
+  \ 'coc-eslint',
+  \ ]
 
 nnoremap ,j :CocCommand prettier.formatFile<CR>
 " nnoremap gd <Plug>(coc-definition)
-nnoremap gd :call CocAction('jumpDefinition')<CR>
-nnoremap <C-]> :call CocAction('jumpDefinition')<CR>
+nnoremap gd :call CocAction('jumpDefinition', 'vsplit')<CR>
+nnoremap <C-]> :call CocAction('jumpDefinition', 'vsplit')<CR>
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
