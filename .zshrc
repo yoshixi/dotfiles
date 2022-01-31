@@ -139,13 +139,13 @@ alias drmi='docker rmi'
 alias drun='docker run'
 alias dstart='docker start'
 alias dstop='docker stop'
+alias dkilla='docker kill $(docker ps -q)'
 
 alias t='tmux '
 alias tkills='tmux kill-session -t '
 alias tkillw='tmux kill-window -t '
 alias tkillp='tmux kill-pane -t '
 
-alias du='du_pretty'
 #directories
 alias mamp="/Applications/MAMP/htdocs"
 alias download="/Users/masubuchiyoshiki/Downloads"

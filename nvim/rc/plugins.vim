@@ -25,7 +25,7 @@ call dein#begin(s:dein_dir, expand('<sfile>'))
 let s:toml_dir = expand('$CONFIG/nvim/dein')
 
 call dein#load_toml(s:toml_dir . '/plugins.toml', {'lazy': 0})
-" call dein#load_toml(s:toml_dir . '/language-client.toml', {'lazy': 0})
+"  call dein#load_toml(s:toml_dir . '/language-client.toml', {'lazy': 0})
 call dein#load_toml(s:toml_dir . '/coc.toml', {'lazy': 0})
 call dein#load_toml(s:toml_dir . '/lazy.toml', {'lazy': 1})
 

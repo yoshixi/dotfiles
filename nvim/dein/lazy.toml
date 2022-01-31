@@ -68,16 +68,31 @@ repo = 'noprompt/vim-yardoc'
 on_ft = ['ruby']
 
 [[plugins]]
+repo = 'tpope/vim-dispatch'
+on_ft = ['ruby']
+
+[[plugins]]
 repo = 'thoughtbot/vim-rspec'
 on_ft = ['ruby']
 hook_add ='''
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
+let g:rspec_command = 'Dispatch bundle exec rspec --color --format d {spec}'
+
+map <Leader>c :call RunCurrentSpecFile()<CR>
+map <Leader>l :call RunNearestSpec()<CR>
+map <Leader>n :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 '''
 
 [[plugins]]
 repo = 'tpope/vim-endwise'
 on_ft = ['ruby']
+
+[[plugins]]
+repo = 'slim-template/vim-slim'
+on_ft = ['slim']
+hook_add = '''
+syntax enable
+filetype plugin indent on
+'''
 # ruby END
+
