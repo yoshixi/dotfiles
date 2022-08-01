@@ -95,6 +95,7 @@ alias gdn="git diff --name-only"
 alias gl="git log --graph --decorate --oneline"
 alias gphc="git symbolic-ref --short HEAD| xargs -Icurrent_branch git push heroku-st current_branch:master"
 alias gpo="git symbolic-ref --short HEAD| xargs git push origin "
+alias gbdm="git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d "
 alias cm="cat ~/.gitcommitmessage_sample | peco | xargs -I {} echo  "'{}'" "
 
 alias gps="$PUSH_STAGING"
@@ -139,13 +140,13 @@ alias drmi='docker rmi'
 alias drun='docker run'
 alias dstart='docker start'
 alias dstop='docker stop'
+alias dkilla='docker kill $(docker ps -q)'
 
 alias t='tmux '
 alias tkills='tmux kill-session -t '
 alias tkillw='tmux kill-window -t '
 alias tkillp='tmux kill-pane -t '
 
-alias du='du_pretty'
 #directories
 alias mamp="/Applications/MAMP/htdocs"
 alias download="/Users/masubuchiyoshiki/Downloads"

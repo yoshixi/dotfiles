@@ -1,6 +1,6 @@
 {
-  "eslint.autoFix": true,
-  "eslint.autoFixOnSave": true,
+  "eslint.autoFix": false,
+  "eslint.autoFixOnSave": false,
   "eslint.filetypes": [
     "javascript",
     "javascriptreact",
@@ -8,7 +8,7 @@
     "typescriptreact",
     "vue"
   ],
-  " coc.preferences.formatOnSaveFiletypes": [
+  "coc.preferences.formatOnSaveFiletypes": [
     "html",
     "css",
     "javascript",
@@ -16,7 +16,8 @@
     "typescript",
     "typescriptreact",
     "vue",
-    "ruby"
+    "ruby",
+    "go"
   ],
   "languageserver": {
     "golang": {
@@ -30,5 +31,8 @@
       "filetypes": ["typescript", "typescriptreact", "graphql", "vue"]
     }
   },
+  "deno.lint": true,
+  "prettier.disableLanguages": ["typescript"],
+  "typescript.format.enabled": false,
   "codeLens.enable": true
 }

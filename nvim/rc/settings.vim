@@ -14,3 +14,6 @@ set clipboard=unnamed
 nmap # <Space><Space>:%s/<C-r>///g<Left><Left>
 inoremap <C-]> <Esc><Right>
 noremap <Leader>v vey
+
+" for slim template https://qiita.com/_KASA_/items/f2a6507fede38b3662e3
+autocmd BufRead,BufNewFile *.slim setfiletype slim

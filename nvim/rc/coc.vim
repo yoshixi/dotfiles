@@ -1,4 +1,3 @@
-let g:coc_global_extensions = ['coc-solargraph']
 let g:coc_global_extensions = [
   \ 'coc-solargraph',
   \ 'coc-json',
