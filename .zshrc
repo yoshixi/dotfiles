@@ -12,9 +12,9 @@ if which plenv > /dev/null; then eval "$(plenv init -)"; fi
   setopt nonomatch
  }
 
-
+ 
 : "プラグイン" && {
-  export ZPLUG_HOME=/usr/local/opt/zplug
+  export ZPLUG_HOME=$(brew --prefix)/opt/zplug
   [ -f "$ZPLUG_HOME/init.zsh" ] || brew install zplug # zplugはHomebrewからインストール
   source $ZPLUG_HOME/init.zsh
   zplug "zsh-users/zsh-completions" # 多くのコマンドに対応する入力補完 … https://github.com/zsh-users/zsh-completions
@@ -52,7 +52,6 @@ export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
 export PATH=$PATH:/usr/local/mysql/bin
 # Path to your oh-my-zsh installation.
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 # go path
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
@@ -100,7 +99,6 @@ alias cm="cat ~/.gitcommitmessage_sample | peco | xargs -I {} echo  "'{}'" "
 
 alias gps="$PUSH_STAGING"
 alias gpp="$PUSH_PRODUCTION"
-alias jvcd="javac -d cmp"
 alias tej="trans {en=ja}"
 alias tje="trans {ja=en}"
 alias ll="ls -l"
@@ -210,7 +208,7 @@ case $TERM in
 	 *) LANG=ja_JP.UTF-8 ;;
 esac
 
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc'; fi
