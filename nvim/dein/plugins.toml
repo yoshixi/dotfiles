@@ -3,6 +3,9 @@ repo = 'bronson/vim-trailing-whitespace'
 
 [[plugins]]
 repo = 'simeji/winresizer'
+hook_add = '''
+  let g:winresizer_start_key = '<Leader>t'
+'''
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -88,4 +91,5 @@ hook_add = '''
 source ~/.config/nvim/rc/syntastic.rc.vim
 '''
 
-
+[[plugins]]
+repo = 'github/copilot.vim'

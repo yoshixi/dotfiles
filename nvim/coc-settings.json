@@ -1,5 +1,5 @@
 {
-  "eslint.autoFix": true,
+  "eslint.autoFix": false,
   "eslint.autoFixOnSave": false,
   "eslint.filetypes": [
     "javascript",
@@ -31,5 +31,8 @@
       "filetypes": ["typescript", "typescriptreact", "graphql", "vue"]
     }
   },
+  "deno.lint": true,
+  "prettier.disableLanguages": ["typescript"],
+  "typescript.format.enabled": false,
   "codeLens.enable": true
 }
