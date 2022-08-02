@@ -1,4 +1,8 @@
-if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+# Load seperated config files. This files may be dependended on the laptop.
+for conf in "$HOME/.config/zsh/config.d/"*.zsh; do
+  source "${conf}"
+done
+unset conf
 
 # If you come from bash you might have to change your $PATH.
 : "一般的な設定" && {
