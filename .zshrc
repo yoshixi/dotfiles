@@ -58,7 +58,7 @@ export PATH=$PATH:/usr/local/mysql/bin
 # Path to your oh-my-zsh installation.
 # go path
 export GOPATH=$HOME/go
-export GOROOT="$(brew --prefix golang)/libexec"
+# export GOROOT="$(brew --prefix golang)/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # node
@@ -114,7 +114,7 @@ alias sz="source ~/.zshrc"
 alias vz="vim ~/.zshrc"
 alias home=$HOME
 alias ecry='/Users/masubuchiyoshiki/Sites/nicola/ECRy-web'
-alias vv="vim ${GHQROOT}/github.com/yoshixj/dotfiles/nvim"
+alias vv="vim ${GHQROOT}/github.com/yoshixi/dotfiles/nvim"
 alias l="ls -al"
 alias rm="rm -i"
 alias macvim="open . -a MacVim"
