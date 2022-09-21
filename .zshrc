@@ -22,8 +22,8 @@ unset conf
   [ -f "$ZPLUG_HOME/init.zsh" ] || brew install zplug # zplugはHomebrewからインストール
   source $ZPLUG_HOME/init.zsh
   zplug "zsh-users/zsh-completions" # 多くのコマンドに対応する入力補完 … https://github.com/zsh-users/zsh-completions
-  zplug "mafredri/zsh-async" # "sindresorhus/pure"が依存している
-  zplug "sindresorhus/pure", use:pure.zsh, as:theme, from:github # 美しく最小限で高速なプロンプト … https://github.com/sindresorhus/pure
+  zplug mafredri/zsh-async, from:github
+  zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
   zplug "zsh-users/zsh-syntax-highlighting", defer:2 # fishシェル風のシンタクスハイライト … https://github.com/zsh-users/zsh-syntax-highlighting
   zplug "supercrabtree/k" # git情報を含んだファイルリストを表示するコマンド … https://github.com/supercrabtree/k
   zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf # あいまい検索ができるコマンド … https://github.com/junegunn/fzf
@@ -47,6 +47,7 @@ zstyle :prompt:pure:path color white
 zstyle ':prompt:pure:prompt:*' color cyan
 # turn on git stash status
 zstyle :prompt:pure:git:stash show yes
+prompt pure
 
 # タブ補完
 autoload -Uz compinit && compinit
@@ -80,6 +81,11 @@ export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
 
 # flutter
 export PATH="$PATH:$GHQROOT/github.com/flutter/flutter/bin"
+
+# java
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
+
 
 # alias
 alias vim="nvim"
@@ -198,6 +204,7 @@ source /Users/yoshikimasubuchi/.
 # direnv
 export EDITOR="vim"
 eval "$(direnv hook zsh)"
+source $(brew --prefix autoenv)/activate.sh
 
 
 # pyenv
