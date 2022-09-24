@@ -1,4 +1,8 @@
-if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+# Load seperated config files. This files may be dependended on the laptop.
+for conf in "$HOME/.config/zsh/config.d/"*.zsh; do
+  source "${conf}"
+done
+unset conf
 
 # If you come from bash you might have to change your $PATH.
 : "一般的な設定" && {
@@ -12,14 +16,13 @@ if which plenv > /dev/null; then eval "$(plenv init -)"; fi
   setopt nonomatch
  }
 
-
 : "プラグイン" && {
-  export ZPLUG_HOME=/usr/local/opt/zplug
+  export ZPLUG_HOME=$(brew --prefix)/opt/zplug
   [ -f "$ZPLUG_HOME/init.zsh" ] || brew install zplug # zplugはHomebrewからインストール
   source $ZPLUG_HOME/init.zsh
   zplug "zsh-users/zsh-completions" # 多くのコマンドに対応する入力補完 … https://github.com/zsh-users/zsh-completions
-  zplug "mafredri/zsh-async" # "sindresorhus/pure"が依存している
-  zplug "sindresorhus/pure", use:pure.zsh, as:theme, from:github # 美しく最小限で高速なプロンプト … https://github.com/sindresorhus/pure
+  zplug mafredri/zsh-async, from:github
+  zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
   zplug "zsh-users/zsh-syntax-highlighting", defer:2 # fishシェル風のシンタクスハイライト … https://github.com/zsh-users/zsh-syntax-highlighting
   zplug "supercrabtree/k" # git情報を含んだファイルリストを表示するコマンド … https://github.com/supercrabtree/k
   zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf # あいまい検索ができるコマンド … https://github.com/junegunn/fzf
@@ -43,6 +46,7 @@ zstyle :prompt:pure:path color white
 zstyle ':prompt:pure:prompt:*' color cyan
 # turn on git stash status
 zstyle :prompt:pure:git:stash show yes
+prompt pure
 
 # タブ補完
 autoload -Uz compinit && compinit
@@ -52,14 +56,14 @@ export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
 export PATH=$PATH:/usr/local/mysql/bin
 # Path to your oh-my-zsh installation.
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 # go path
-export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
+# export GOROOT="$(brew --prefix golang)/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
 # node
-eval "$(anyenv init -)"
-eval "$(nodenv init -)"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # ruby
 eval "$(rbenv init -)"
@@ -76,6 +80,12 @@ export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
 
 # flutter
 export PATH="$PATH:$GHQROOT/github.com/flutter/flutter/bin"
+
+# java
+export JAVA_PATH=$(brew --prefix java)
+export PATH="$JAVA_PATH/bin:$PATH"
+export CPPFLAGS="-I$JAVA_PATH/include"
+
 
 # alias
 alias vim="nvim"
@@ -100,7 +110,6 @@ alias cm="cat ~/.gitcommitmessage_sample | peco | xargs -I {} echo  "'{}'" "
 
 alias gps="$PUSH_STAGING"
 alias gpp="$PUSH_PRODUCTION"
-alias jvcd="javac -d cmp"
 alias tej="trans {en=ja}"
 alias tje="trans {ja=en}"
 alias ll="ls -l"
@@ -108,10 +117,9 @@ alias hpp="history 1| peco | pbcopy"
 alias hp="history 1| peco "
 alias hisg="history | grep "
 alias sz="source ~/.zshrc"
-alias vz="vim ~/.zshrc"
+alias vz="vim ${GHQROOT}/github.com/yoshixi/dotfiles/.zshrc"
 alias home=$HOME
-alias ecry='/Users/masubuchiyoshiki/Sites/nicola/ECRy-web'
-alias vv="vim ${GHQROOT}/github.com/yoshixj/dotfiles/nvim"
+alias vv="vim ${GHQROOT}/github.com/yoshixi/dotfiles/nvim"
 alias l="ls -al"
 alias rm="rm -i"
 alias macvim="open . -a MacVim"
@@ -121,25 +129,6 @@ alias mine="/usr/local/bin/mine "
 alias pp="pwd | pbcopy"
 alias bi='bundle install --path vendor/bundle --jobs=4'
 
-alias d='docker '
-alias dc='docker-compose '
-alias datt='docker attach'
-alias dcb='docker-compose build'
-alias dclogs='docker-compose logs'
-alias dcu='docker-compose up'
-alias dcr='docker-compose run --rm'
-alias dcstop='docker-compose stop'
-alias ddiff='docker diff'
-alias deb='dexbash'
-alias dimg='docker images'
-alias dins='docker inspect'
-alias dps='docker ps'
-alias dbuild='docker build'
-alias drm='docker rm'
-alias drmi='docker rmi'
-alias drun='docker run'
-alias dstart='docker start'
-alias dstop='docker stop'
 alias dkilla='docker kill $(docker ps -q)'
 
 alias t='tmux '
@@ -161,7 +150,7 @@ alias grspec="git diff --name-only --staged | grep '\_spec.rb$' | xargs -t bundl
 alias nclasp="npx clasp "
 
 # yaml-check
-alias yml='ruby -ryaml -e "p YAML.load(STDIN.read)" < '
+alias ymlc='ruby -ryaml -e "p YAML.load(STDIN.read)" < '
 
 # go ghq管理 https://qiita.com/miyaz/items/3c4c32ed5ae13f29aa4c#_reference-cebc288b6d802dd5394c
 alias gh='hub browse $(ghq list -p | peco | cut -d "/" -f 2,3)'
@@ -195,6 +184,7 @@ source /Users/yoshikimasubuchi/.
 # direnv
 export EDITOR="vim"
 eval "$(direnv hook zsh)"
+source $(brew --prefix autoenv)/activate.sh
 
 
 # pyenv
@@ -210,7 +200,7 @@ case $TERM in
 	 *) LANG=ja_JP.UTF-8 ;;
 esac
 
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc'; fi
@@ -222,3 +212,7 @@ if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc' ]; then . 
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
