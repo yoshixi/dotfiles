@@ -82,8 +82,9 @@ export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
 export PATH="$PATH:$GHQROOT/github.com/flutter/flutter/bin"
 
 # java
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
+export JAVA_PATH=$(brew --prefix java)
+export PATH="$JAVA_PATH/bin:$PATH"
+export CPPFLAGS="-I$JAVA_PATH/include"
 
 
 # alias
