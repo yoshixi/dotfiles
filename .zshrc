@@ -16,7 +16,6 @@ unset conf
   setopt nonomatch
  }
 
- 
 : "プラグイン" && {
   export ZPLUG_HOME=$(brew --prefix)/opt/zplug
   [ -f "$ZPLUG_HOME/init.zsh" ] || brew install zplug # zplugはHomebrewからインストール
@@ -117,9 +116,8 @@ alias hpp="history 1| peco | pbcopy"
 alias hp="history 1| peco "
 alias hisg="history | grep "
 alias sz="source ~/.zshrc"
-alias vz="vim ~/.zshrc"
+alias vz="vim ${GHQROOT}/github.com/yoshixi/dotfiles/.zshrc"
 alias home=$HOME
-alias ecry='/Users/masubuchiyoshiki/Sites/nicola/ECRy-web'
 alias vv="vim ${GHQROOT}/github.com/yoshixi/dotfiles/nvim"
 alias l="ls -al"
 alias rm="rm -i"
@@ -130,25 +128,6 @@ alias mine="/usr/local/bin/mine "
 alias pp="pwd | pbcopy"
 alias bi='bundle install --path vendor/bundle --jobs=4'
 
-alias d='docker '
-alias dc='docker-compose '
-alias datt='docker attach'
-alias dcb='docker-compose build'
-alias dclogs='docker-compose logs'
-alias dcu='docker-compose up'
-alias dcr='docker-compose run --rm'
-alias dcstop='docker-compose stop'
-alias ddiff='docker diff'
-alias deb='dexbash'
-alias dimg='docker images'
-alias dins='docker inspect'
-alias dps='docker ps'
-alias dbuild='docker build'
-alias drm='docker rm'
-alias drmi='docker rmi'
-alias drun='docker run'
-alias dstart='docker start'
-alias dstop='docker stop'
 alias dkilla='docker kill $(docker ps -q)'
 
 alias t='tmux '
@@ -170,7 +149,7 @@ alias grspec="git diff --name-only --staged | grep '\_spec.rb$' | xargs -t bundl
 alias nclasp="npx clasp "
 
 # yaml-check
-alias yml='ruby -ryaml -e "p YAML.load(STDIN.read)" < '
+alias ymlc='ruby -ryaml -e "p YAML.load(STDIN.read)" < '
 
 # go ghq管理 https://qiita.com/miyaz/items/3c4c32ed5ae13f29aa4c#_reference-cebc288b6d802dd5394c
 alias gh='hub browse $(ghq list -p | peco | cut -d "/" -f 2,3)'
