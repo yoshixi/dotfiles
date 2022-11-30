@@ -17,3 +17,6 @@ noremap <Leader>v vey
 
 " for slim template https://qiita.com/_KASA_/items/f2a6507fede38b3662e3
 autocmd BufRead,BufNewFile *.slim setfiletype slim
+
+// for rust
+au BufRead,BufNewFile *.rs setfiletype=rust
