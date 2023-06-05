@@ -34,8 +34,7 @@ unset conf
   zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
   zplug "zsh-users/zsh-syntax-highlighting", defer:2 # fishシェル風のシンタクスハイライト … https://github.com/zsh-users/zsh-syntax-highlighting
   zplug "supercrabtree/k" # git情報を含んだファイルリストを表示するコマンド … https://github.com/supercrabtree/k
-  zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf # あいまい検索ができるコマンド … https://github.com/junegunn/fzf
-  zplug "junegunn/fzf", as:command, use:bin/fzf-tmux # tmuxでfzfを使えるようにするプラグイン
+  zplug "junegunn/fzf", as:command, from:gh-r, rename-to:fzf # あいまい検索ができるコマンド … https://github.com/junegunn/fzf
   zplug "junegunn/fzf", use:shell/key-bindings.zsh # Ctrl-Rで履歴検索、Ctrl-Tでファイル名検索補完できる
   zplug "junegunn/fzf", use:shell/completion.zsh # cd **[TAB], vim **[TAB]などでファイル名を補完できる
   zplug "b4b4r07/enhancd", use:init.sh # cdコマンドをインタラクティブにするプラグイン … https://github.com/b4b4r07/enhancd
@@ -112,7 +111,7 @@ alias gdn="git diff --name-only"
 alias gl="git log --graph --decorate --oneline"
 alias gphc="git symbolic-ref --short HEAD| xargs -Icurrent_branch git push heroku-st current_branch:master"
 alias gpo="git symbolic-ref --short HEAD| xargs git push origin "
-alias gbdm="git branch --merged | erep -E -v "(^\*|master|main|dev)" | xargs git branch -d "
+alias gbdm="git branch --merged | grep -Ev "(^\*|master|main|dev)" | xargs git branch -d "
 alias cm="cat ~/.gitcommitmessage_sample | peco | xargs -I {} echo  "'{}'" "
 
 alias gps="$PUSH_STAGING"
@@ -214,17 +213,19 @@ esac
 # sublime text cli https://www.sublimetext.com/docs/command_line.html#mac
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc'; fi
-
 [[ -s "/Users/yoshikimasubuchi/.gvm/scripts/gvm" ]] && source "/Users/yoshikimasubuchi/.gvm/scripts/gvm"
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
