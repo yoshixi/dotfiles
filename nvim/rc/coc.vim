@@ -7,14 +7,14 @@ let g:coc_global_extensions = [
   \ ]
 
 nnoremap ,j :CocCommand prettier.formatFile<CR>
-" nnoremap gd <Plug>(coc-definition)
+nnoremap gd <Plug>(coc-definition)
 nnoremap gd :call CocAction('jumpDefinition', 'vsplit')<CR>
 nnoremap <C-]> :call CocAction('jumpDefinition', 'vsplit')<CR>
-
-keyset("n", "gy", "<Plug>(coc-type-definition)", {silent = true})
-keyset("n", "gi", "<Plug>(coc-implementation)", {silent = true})
-keyset("n", "gr", "<Plug>(coc-references)", {silent = true})noremap gr <Plug>(coc-references)
-
+" 
+" keyset("n", "gy", "<Plug>(coc-type-definition)", {silent = true})
+" keyset("n", "gi", "<Plug>(coc-implementation)", {silent = true})
+" keyset("n", "gr", "<Plug>(coc-references)", {silent = true})noremap gr <Plug>(coc-references)
+" 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
     \ <SID>check_back_space() ? "\<TAB>" :
