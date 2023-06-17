@@ -111,6 +111,7 @@ alias gdn="git diff --name-only"
 alias gl="git log --graph --decorate --oneline"
 alias gphc="git symbolic-ref --short HEAD| xargs -Icurrent_branch git push heroku-st current_branch:master"
 alias gpo="git symbolic-ref --short HEAD| xargs git push origin "
+alias gpof="git symbolic-ref --short HEAD| xargs git push origin --force-with-lease "
 alias gbdm="git branch --merged | grep -Ev "(^\*|master|main|dev)" | xargs git branch -d "
 alias cm="cat ~/.gitcommitmessage_sample | peco | xargs -I {} echo  "'{}'" "
 

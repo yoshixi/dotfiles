@@ -27,6 +27,7 @@ colorscheme iceberg
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 highlight LineNr ctermbg=none
+highlight LineNr ctermfg=blue
 highlight Folded ctermbg=none
 highlight EndOfBuffer ctermbg=none
 '''
