@@ -223,10 +223,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# for using localstack
+export AWS_DEFAULT_REGION=us-west-2
+
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
