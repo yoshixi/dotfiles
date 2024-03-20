@@ -24,6 +24,41 @@ autocmd("BufReadPre", {
   end,
 })
 
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  desc = "Check if buffers changed on editor focus",
+  group = augroup("checktime", { clear = true }),
+  command = "checktime",
+})
+
+autocmd("BufWritePre", {
+  desc = "Automatically create parent directories if they don't exist when saving a file",
+  group = augroup("create_dir", { clear = true }),
+  callback = function(args)
+    if not require("astronvim.utils.buffer").is_valid(args.buf) then return end
+    vim.fn.mkdir(vim.fn.fnamemodify(vim.loop.fs_realpath(args.match) or args.match, ":p:h"), "p")
+  end,
+})
+
+local terminal_settings_group = augroup("terminal_settings", { clear = true })
+-- TODO: drop when dropping support for Neovim v0.9
+if vim.fn.has "nvim-0.9" == 1 and vim.fn.has "nvim-0.9.4" == 0 then
+  -- HACK: Disable custom statuscolumn for terminals because truncation/wrapping bug
+  -- https://github.com/neovim/neovim/issues/25472
+  autocmd("TermOpen", {
+    group = terminal_settings_group,
+    desc = "Disable custom statuscolumn for terminals to fix neovim/neovim#25472",
+    callback = function() vim.opt_local.statuscolumn = nil end,
+  })
+end
+autocmd("TermOpen", {
+  group = terminal_settings_group,
+  desc = "Disable foldcolumn and signcolumn for terinals",
+  callback = function()
+    vim.opt_local.foldcolumn = "0"
+    vim.opt_local.signcolumn = "no"
+  end,
+})
+
 local bufferline_group = augroup("bufferline", { clear = true })
 autocmd({ "BufAdd", "BufEnter", "TabNewEntered" }, {
   desc = "Update buffers when adding new buffers",
@@ -45,7 +80,7 @@ autocmd({ "BufAdd", "BufEnter", "TabNewEntered" }, {
     astroevent "BufsUpdated"
   end,
 })
-autocmd("BufDelete", {
+autocmd({ "BufDelete", "TermClose" }, {
   desc = "Update buffers when deleting buffers",
   group = bufferline_group,
   callback = function(args)
@@ -160,14 +195,14 @@ autocmd("BufEnter", {
 })
 
 if is_available "alpha-nvim" then
-  autocmd({ "User", "BufEnter" }, {
+  autocmd({ "User", "BufWinEnter" }, {
     desc = "Disable status, tablines, and cmdheight for alpha",
     group = augroup("alpha_settings", { clear = true }),
     callback = function(args)
       if
         (
           (args.event == "User" and args.file == "AlphaReady")
-          or (args.event == "BufEnter" and vim.api.nvim_get_option_value("filetype", { buf = args.buf }) == "alpha")
+          or (args.event == "BufWinEnter" and vim.api.nvim_get_option_value("filetype", { buf = args.buf }) == "alpha")
         ) and not vim.g.before_alpha
       then
         vim.g.before_alpha = {
@@ -178,7 +213,7 @@ if is_available "alpha-nvim" then
         vim.opt.showtabline, vim.opt.laststatus, vim.opt.cmdheight = 0, 0, 0
       elseif
         vim.g.before_alpha
-        and args.event == "BufEnter"
+        and args.event == "BufWinEnter"
         and vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= "nofile"
       then
         vim.opt.laststatus, vim.opt.showtabline, vim.opt.cmdheight =
@@ -210,7 +245,7 @@ if is_available "alpha-nvim" then
         end
       end
       if should_skip then return end
-      require("alpha").start(true, require("alpha").default_config)
+      require("alpha").start(true)
       vim.schedule(function() vim.cmd.doautocmd "FileType" end)
     end,
   })
@@ -224,7 +259,9 @@ if is_available "indent-blankline.nvim" then
     group = augroup("indent_blankline_refresh_scroll", { clear = true }),
     callback = function()
       -- TODO: remove neovim version check when dropping support for Neovim 0.8
-      if vim.fn.has "nvim-0.9" ~= 1 or vim.v.event.all.leftcol ~= 0 then pcall(vim.cmd.IndentBlanklineRefresh) end
+      if vim.fn.has "nvim-0.9" ~= 1 or (vim.v.event.all and vim.v.event.all.leftcol ~= 0) then
+        pcall(vim.cmd.IndentBlanklineRefresh)
+      end
     end,
   })
 end
@@ -292,11 +329,22 @@ autocmd("ColorScheme", {
   end,
 })
 
+autocmd("FileType", {
+  desc = "configure editorconfig after filetype detection to override `ftplugin`s",
+  group = augroup("editorconfig_filetype", { clear = true }),
+  callback = function(args)
+    if vim.F.if_nil(vim.b.editorconfig, vim.g.editorconfig, true) then
+      local editorconfig_avail, editorconfig = pcall(require, "editorconfig")
+      if editorconfig_avail then editorconfig.config(args.buf) end
+    end
+  end,
+})
+
 autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   desc = "AstroNvim user events for file detection (AstroFile and AstroGitFile)",
   group = augroup("file_user_events", { clear = true }),
   callback = function(args)
-    local current_file = vim.fn.resolve(vim.fn.expand "%")
+    local current_file = vim.api.nvim_buf_get_name(args.buf)
     if not (current_file == "" or vim.api.nvim_get_option_value("buftype", { buf = args.buf }) == "nofile") then
       astroevent "File"
       if
@@ -306,6 +354,7 @@ autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
         astroevent "GitFile"
         vim.api.nvim_del_augroup_by_name "file_user_events"
       end
+      vim.schedule(function() vim.api.nvim_exec_autocmds("CursorMoved", { modeline = false }) end)
     end
   end,
 })

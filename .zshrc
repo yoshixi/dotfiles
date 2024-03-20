@@ -106,6 +106,7 @@ alias gc="git checkout "
 alias gcp="git branch | peco | xargs git checkout"
 alias gcb="git checkout -b"
 alias gcm="git commit -m"
+alias acm="aicommits"
 alias gd="git diff --patience"
 alias gdn="git diff --name-only"
 alias gl="git log --graph --decorate --oneline"
@@ -228,6 +229,14 @@ export NVM_DIR="$HOME/.nvm"
 # for using localstack
 export AWS_DEFAULT_REGION=us-west-2
 
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# poetry
+export PATH="/Users/yoshikimasubuchi/.local/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/path.zsh.inc'; fi
