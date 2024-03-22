@@ -21,8 +21,15 @@ repo = 'liuchengxu/vista.vim'
 
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
-hook_add ='''
+hook_add = '''
 colorscheme iceberg
+
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+highlight LineNr ctermbg=none
+highlight LineNr ctermfg=blue
+highlight Folded ctermbg=none
+highlight EndOfBuffer ctermbg=none
 '''
 
 ## fern start
@@ -30,6 +37,7 @@ colorscheme iceberg
 repo = 'lambdalisue/fern.vim'
 hook_add='''
 let g:fern#default_hidden = 1
+nnoremap <Leader>b :Fern . -reveal=% -drawer -toggle -width=40<CR>
 '''
 
 [[plugins]]
@@ -77,6 +85,7 @@ repo = 'junegunn/fzf.vim'
 depends = 'fzf'
 hook_add = '''
   nnoremap <C-f> :GFiles<CR>
+  nnoremap <C-l> :Files<CR>
 
   command! -bang -nargs=* Rg
     \ call fzf#vim#grep(

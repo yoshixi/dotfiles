@@ -7,7 +7,7 @@ let g:coc_global_extensions = [
   \ ]
 
 nnoremap ,j :CocCommand prettier.formatFile<CR>
-" nnoremap gd <Plug>(coc-definition)
+nnoremap gd <Plug>(coc-definition)
 nnoremap gd :call CocAction('jumpDefinition', 'vsplit')<CR>
 nnoremap <C-]> :call CocAction('jumpDefinition', 'vsplit')<CR>
 

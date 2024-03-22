@@ -1,4 +1,4 @@
-# Load seperated config files. This files may be dependended on the laptop.
+# Load seperated config files. If there are files that are dependended on laptop or should be private, putting the zsh files in following the directroy would be helpfull.
 for conf in "$HOME/.config/zsh/config.d/"*.zsh; do
   source "${conf}"
 done
@@ -6,7 +6,6 @@ unset conf
 
 # If you come from bash you might have to change your $PATH.
 : "一般的な設定" && {
-  autoload -U compinit && compinit -d ${COMPDUMPFILE} # 補完機能の強化
   setopt nobeep # ビープを鳴らさない
   setopt no_tify # バックグラウンドジョブが終了したらすぐに知らせる。
   setopt auto_menu # タブによるファイルの順番切り替えをしない
@@ -14,6 +13,16 @@ unset conf
   setopt auto_cd # ディレクトリ名を入力するだけでcdできるようにする
   setopt interactivecomments
   setopt nonomatch
+
+  # need to install zsh-completions / brew install zsh-completions
+  if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
+  fi
+  # brew install zsh-autosuggestions
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
  }
 
 : "プラグイン" && {
@@ -25,8 +34,7 @@ unset conf
   zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
   zplug "zsh-users/zsh-syntax-highlighting", defer:2 # fishシェル風のシンタクスハイライト … https://github.com/zsh-users/zsh-syntax-highlighting
   zplug "supercrabtree/k" # git情報を含んだファイルリストを表示するコマンド … https://github.com/supercrabtree/k
-  zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf # あいまい検索ができるコマンド … https://github.com/junegunn/fzf
-  zplug "junegunn/fzf", as:command, use:bin/fzf-tmux # tmuxでfzfを使えるようにするプラグイン
+  zplug "junegunn/fzf", as:command, from:gh-r, rename-to:fzf # あいまい検索ができるコマンド … https://github.com/junegunn/fzf
   zplug "junegunn/fzf", use:shell/key-bindings.zsh # Ctrl-Rで履歴検索、Ctrl-Tでファイル名検索補完できる
   zplug "junegunn/fzf", use:shell/completion.zsh # cd **[TAB], vim **[TAB]などでファイル名を補完できる
   zplug "b4b4r07/enhancd", use:init.sh # cdコマンドをインタラクティブにするプラグイン … https://github.com/b4b4r07/enhancd
@@ -37,7 +45,9 @@ unset conf
   zplug load
 }
 
+
 autoload -U promptinit; promptinit
+prompt pure
 # optionally define some options
 PURE_CMD_MAX_EXEC_TIME=10
 # change the path color
@@ -46,16 +56,12 @@ zstyle :prompt:pure:path color white
 zstyle ':prompt:pure:prompt:*' color cyan
 # turn on git stash status
 zstyle :prompt:pure:git:stash show yes
-prompt pure
 
 # タブ補完
-autoload -Uz compinit && compinit
 zstyle ':completion:*:default' menu select=1
 export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
-export PATH=$PATH:/usr/local/mysql/bin
-# Path to your oh-my-zsh installation.
+
 # go path
 export GOPATH=$HOME/go
 # export GOROOT="$(brew --prefix golang)/libexec"
@@ -100,12 +106,14 @@ alias gc="git checkout "
 alias gcp="git branch | peco | xargs git checkout"
 alias gcb="git checkout -b"
 alias gcm="git commit -m"
+alias acm="aicommits"
 alias gd="git diff --patience"
 alias gdn="git diff --name-only"
 alias gl="git log --graph --decorate --oneline"
 alias gphc="git symbolic-ref --short HEAD| xargs -Icurrent_branch git push heroku-st current_branch:master"
 alias gpo="git symbolic-ref --short HEAD| xargs git push origin "
-alias gbdm="git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d "
+alias gpof="git symbolic-ref --short HEAD| xargs git push origin --force-with-lease "
+alias gbdm="git branch --merged | grep -Ev "(^\*|master|main|dev)" | xargs git branch -d "
 alias cm="cat ~/.gitcommitmessage_sample | peco | xargs -I {} echo  "'{}'" "
 
 alias gps="$PUSH_STAGING"
@@ -184,7 +192,9 @@ source /Users/yoshikimasubuchi/.
 # direnv
 export EDITOR="vim"
 eval "$(direnv hook zsh)"
-source $(brew --prefix autoenv)/activate.sh
+
+# The cd command using in the autoenv confilicts with cd enhancd plugin so ignored it.
+# source $(brew --prefix autoenv)/activate.sh
 
 
 # pyenv
@@ -202,17 +212,34 @@ esac
 
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yoshikimasubuchi/google-cloud-sdk/completion.zsh.inc'; fi
+# sublime text cli https://www.sublimetext.com/docs/command_line.html#mac
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 
 [[ -s "/Users/yoshikimasubuchi/.gvm/scripts/gvm" ]] && source "/Users/yoshikimasubuchi/.gvm/scripts/gvm"
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# for using localstack
+export AWS_DEFAULT_REGION=us-west-2
+
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# poetry
+export PATH="/Users/yoshikimasubuchi/.local/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yoshikimasubuchi/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

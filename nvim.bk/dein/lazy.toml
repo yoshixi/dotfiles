@@ -57,6 +57,14 @@ on_ft = ['javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown', '
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
 
+# golang START
+[[plugins]]
+repo = 'sebdah/vim-delve'
+
+[[plugins]]
+repo = 'mattn/vim-goimports'
+# golang end
+
 
 # ruby START
 [[plugins]]
@@ -96,3 +104,13 @@ filetype plugin indent on
 '''
 # ruby END
 
+# rust START
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = ['rust']
+hook_add = '''
+syntax enable
+filetype plugin indent on
+let g:rustfmt_autosave = 1
+'''
+# rust END

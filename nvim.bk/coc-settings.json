@@ -17,8 +17,16 @@
     "typescriptreact",
     "vue",
     "ruby",
-    "go"
+    "go",
+    "rust"
   ],
+  "deno.lint": true,
+  "prettier.disableLanguages": ["typescript"],
+  "typescript.format.enabled": false,
+  "codeLens.enable": true,
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "rust-analyzer.updates.channel": "stable",
+  "rust-analyzer.procMacro.enable": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -30,9 +38,5 @@
       "args": ["server", "-m", "stream"],
       "filetypes": ["typescript", "typescriptreact", "graphql", "vue"]
     }
-  },
-  "deno.lint": true,
-  "prettier.disableLanguages": ["typescript"],
-  "typescript.format.enabled": false,
-  "codeLens.enable": true
+  }
 }
