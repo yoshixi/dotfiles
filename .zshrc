@@ -92,6 +92,9 @@ export JAVA_PATH=$(brew --prefix java)
 export PATH="$JAVA_PATH/bin:$PATH"
 export CPPFLAGS="-I$JAVA_PATH/include"
 
+# link openjdk for puml
+# sudo ln -sfn $(brew --prefix)/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+
 
 # alias
 alias vim="nvim"
