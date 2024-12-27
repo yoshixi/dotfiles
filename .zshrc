@@ -29,9 +29,8 @@ unset conf
   export ZPLUG_HOME=$(brew --prefix)/opt/zplug
   [ -f "$ZPLUG_HOME/init.zsh" ] || brew install zplug # zplugはHomebrewからインストール
   source $ZPLUG_HOME/init.zsh
-  zplug "zsh-users/zsh-completions" # 多くのコマンドに対応する入力補完 … https://github.com/zsh-users/zsh-completions
   zplug mafredri/zsh-async, from:github
-  zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
+  # zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
   zplug "zsh-users/zsh-syntax-highlighting", defer:2 # fishシェル風のシンタクスハイライト … https://github.com/zsh-users/zsh-syntax-highlighting
   zplug "supercrabtree/k" # git情報を含んだファイルリストを表示するコマンド … https://github.com/supercrabtree/k
   zplug "junegunn/fzf", as:command, from:gh-r, rename-to:fzf # あいまい検索ができるコマンド … https://github.com/junegunn/fzf
@@ -45,6 +44,8 @@ unset conf
   zplug load
 }
 
+# brew install pure
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
 
 autoload -U promptinit; promptinit
 prompt pure
@@ -59,7 +60,6 @@ zstyle :prompt:pure:git:stash show yes
 
 # タブ補完
 zstyle ':completion:*:default' menu select=1
-export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
 
 # go path
@@ -73,6 +73,8 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 # ruby
 eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:$PATH"
 
 export GHQROOT="/Users/yoshikimasubuchi/.ghq"
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
@@ -146,10 +148,16 @@ alias t='tmux '
 alias tkills='tmux kill-session -t '
 alias tkillw='tmux kill-window -t '
 alias tkillp='tmux kill-pane -t '
+tmux set -g set-titles on
+tmux set -g set-titles-string '#{pane_title}'
+tmux set -g pane-border-status top
+tmux set -g pane-border-format "#{pane_index} #{pane_title}"
+tmux set -g pane-border-style fg=red,bg=black
+
 
 #directories
 alias mamp="/Applications/MAMP/htdocs"
-alias download="/Users/masubuchiyoshiki/Downloads"
+alias download="cd /Users/masubuchiyoshiki/Downloads"
 
 # ruby
 alias rubo="git diff --name-only --diff-filter=AM | grep '\.rb$' | xargs rubocop"
